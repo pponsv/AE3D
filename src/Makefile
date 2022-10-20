@@ -6,13 +6,13 @@ MKLFLAGS    = -lmkl_gf_lp64 -lmkl_core -lmkl_sequential -lpthread -lm
 GFLAGS      = -O2 -ffixed-form
 
 .PHONY: all clean
-	
+
 all: $(BUILDPATH)xae3d
 	
-$(BUILDPATH)xae3d: fourier_lib_module.o fourier_lib_module.mod ae_solve.o
+$(BUILDPATH)xae3d: fourier_lib_module.o fourier_lib.mod ae_solve.o $(BUILDPATH)
 	gfortran $(GFLAGS) fourier_lib_module.o ae_solve.o $(MKLFLAGS) -o $@
 
-fourier_lib_module.o fourier_lib_module.mod: fourier_lib_module.f
+fourier_lib_module.o fourier_lib.mod: fourier_lib_module.f
 	gfortran $(GFLAGS) -c fourier_lib_module.f
 
 ae_solve.o: $(AENAME)
@@ -20,3 +20,6 @@ ae_solve.o: $(AENAME)
 
 clean:
 	rm -f *.o *.mod x*
+
+$(BUILDPATH):
+	mkdir -p $(BUILDPATH)
