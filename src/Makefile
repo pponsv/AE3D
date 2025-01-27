@@ -2,7 +2,8 @@ BUILDPATH   = ../bin/
 
 AENAME      = ae_solve_version*.f
 
-MKLFLAGS    = -lmkl_gf_lp64 -lmkl_core -lmkl_sequential -lpthread -lm
+# MKLFLAGS    = -lmkl_gf_lp64 -lmkl_core -lmkl_sequential -lpthread -lm
+MKLFLAGS = -lpthread -lm -lopenblas
 GFLAGS      = -O2 -ffixed-form
 
 .PHONY: all clean
